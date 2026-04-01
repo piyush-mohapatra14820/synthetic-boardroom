@@ -6,7 +6,7 @@ import { genCode, getColor } from "@/lib/utils";
 
 export default function Home() {
   const router = useRouter();
-  const [mode, setMode] = useState("home");
+  const [mode, setMode] = useState<"home"|"create"|"join">("home");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [cName, setCName] = useState("");
@@ -18,12 +18,12 @@ export default function Home() {
   const [jPersonality, setJPersonality] = useState("");
   const [jFileName, setJFileName] = useState("");
 
-  function handleFile(e, setter, nameSetter) {
+  function handleFile(e: React.ChangeEvent<HTMLInputElement>, setter: (v: string) => void, nameSetter: (v: string) => void) {
     const file = e.target.files?.[0];
     if (!file) return;
     nameSetter(file.name);
     const reader = new FileReader();
-    reader.onload = (ev) => setter(ev.target?.result);
+    reader.onload = (ev) => setter(ev.target?.result as string);
     reader.readAsText(file);
   }
 
@@ -38,7 +38,7 @@ export default function Home() {
       if (memErr) throw memErr;
       localStorage.setItem(`boardroom_${code}_user`, cName.trim());
       router.push(`/room/${code}`);
-    } catch (e) { setError(e.message || "Failed to create room."); setLoading(false); }
+    } catch (e: unknown) { setError((e as Error).message || "Failed to create room."); setLoading(false); }
   }
 
   async function joinRoom() {
@@ -57,7 +57,7 @@ export default function Home() {
       if (memErr) throw memErr;
       localStorage.setItem(`boardroom_${code}_user`, jName.trim());
       router.push(`/room/${code}`);
-    } catch (e) { setError(e.message || "Failed to join room."); setLoading(false); }
+    } catch (e: unknown) { setError((e as Error).message || "Failed to join room."); setLoading(false); }
   }
 
   const inputCls = "w-full bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3 text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-zinc-600";
@@ -73,7 +73,7 @@ export default function Home() {
                 {[0,1,2,3].map(i => { const c = getColor(i); return <div key={i} className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-medium" style={{background:c.bg,color:c.fg}}>{["PM","MZ","SK","AR"][i]}</div>; })}
               </div>
               <h1 className="text-3xl font-medium text-white tracking-tight mb-3">Synthetic Boardroom</h1>
-              <p className="text-sm text-zinc-400 leading-relaxed">Upload your personality file. Your digital self debates with others — no calendar invite, no ego, no scheduling. Just signal.</p>
+              <p className="text-sm text-zinc-400 leading-relaxed">Upload your personality file. Your digital self debates with others — no calendar invite, no ego. Just signal.</p>
             </div>
             <div className="space-y-3">
               <button onClick={() => { setMode("create"); setError(""); }} className="w-full text-left p-5 rounded-xl border border-zinc-800 bg-zinc-900 hover:border-zinc-600 transition-all group">
