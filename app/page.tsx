@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { genCode } from "@/lib/utils";
 
+const CHAKRA = { fontFamily: "'Chakra Petch', sans-serif", fontWeight: 700 };
+const PLAYFAIR = { fontFamily: "'Playfair Display', serif", fontWeight: 500 };
+
 export default function Home() {
   const router = useRouter();
   const [mode, setMode] = useState("home");
@@ -66,14 +69,20 @@ export default function Home() {
 
         {mode === "home" && (
           <div className="fade-up text-center">
-            <div className="mb-2">
-              <span className="text-[#5c0403] text-xs font-medium uppercase tracking-[0.3em]">Private Beta</span>
+            <div className="mb-3">
+              <span className="text-[#5c0403] text-xs uppercase tracking-[0.35em]" style={PLAYFAIR}>Private Beta</span>
             </div>
-            <h1 className="font-display text-5xl md:text-6xl font-black text-[#f5e6d3] mb-4 leading-tight" style={{fontFamily: "'Playfair Display', serif", fontWeight: 900}}>
-              Synthetic<br/>Boardroom
+
+            <h1 className="text-6xl md:text-7xl text-[#f5e6d3] mb-2 leading-none tracking-tight" style={CHAKRA}>
+              SYNTHETIC
             </h1>
-            <div className="w-16 h-0.5 bg-[#5c0403] mx-auto mb-6"></div>
-            <p className="text-[#a07060] text-sm leading-relaxed mb-10 max-w-sm mx-auto">
+            <h1 className="text-6xl md:text-7xl text-[#5c0403] mb-5 leading-none tracking-tight" style={CHAKRA}>
+              BOARDROOM
+            </h1>
+
+            <div className="w-16 h-px bg-[#5c0403] mx-auto mb-6"></div>
+
+            <p className="text-[#a07060] text-sm leading-relaxed mb-10 max-w-sm mx-auto" style={PLAYFAIR}>
               Upload your personality. Your digital self debates with the sharpest minds in your network — no calendars, no egos. Just signal.
             </p>
 
@@ -82,8 +91,8 @@ export default function Home() {
                 className="w-full text-left px-6 py-5 rounded-xl border border-[#5c0403]/50 bg-black/20 hover:bg-[#5c0403]/10 hover:border-[#5c0403] transition-all group backdrop-blur-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-[#f5e6d3] font-medium mb-1" style={{fontFamily: "'Playfair Display', serif"}}>Convene a room</div>
-                    <div className="text-[#8a6a65] text-xs">Start a boardroom. Share the code with your people.</div>
+                    <div className="text-[#f5e6d3] text-lg mb-1" style={CHAKRA}>CONVENE A ROOM</div>
+                    <div className="text-[#8a6a65] text-xs" style={PLAYFAIR}>Start a boardroom. Share the code with your people.</div>
                   </div>
                   <div className="text-[#5c0403] group-hover:translate-x-1 transition-transform text-xl">→</div>
                 </div>
@@ -93,8 +102,8 @@ export default function Home() {
                 className="w-full text-left px-6 py-5 rounded-xl border border-[#432f2e]/50 bg-black/20 hover:bg-[#432f2e]/20 hover:border-[#432f2e] transition-all group backdrop-blur-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="text-[#f5e6d3] font-medium mb-1" style={{fontFamily: "'Playfair Display', serif"}}>Join a room</div>
-                    <div className="text-[#8a6a65] text-xs">Enter a code and upload your personality.</div>
+                    <div className="text-[#f5e6d3] text-lg mb-1" style={CHAKRA}>JOIN A ROOM</div>
+                    <div className="text-[#8a6a65] text-xs" style={PLAYFAIR}>Enter a code and upload your personality.</div>
                   </div>
                   <div className="text-[#432f2e] group-hover:translate-x-1 transition-transform text-xl">→</div>
                 </div>
@@ -103,7 +112,7 @@ export default function Home() {
 
             <div className="mt-10 flex items-center gap-3 justify-center">
               <div className="h-px flex-1 bg-[#432f2e]/30"></div>
-              <span className="text-[#5c0403]/60 text-xs uppercase tracking-widest">Built for founders</span>
+              <span className="text-[#5c0403]/50 text-xs uppercase tracking-widest" style={PLAYFAIR}>Built for founders</span>
               <div className="h-px flex-1 bg-[#432f2e]/30"></div>
             </div>
           </div>
@@ -111,36 +120,24 @@ export default function Home() {
 
         {mode === "create" && (
           <div className="fade-up">
-            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-8 flex items-center gap-2 transition-colors">
-              ← Back
-            </button>
-            <h2 className="text-3xl font-black text-[#f5e6d3] mb-1" style={{fontFamily: "'Playfair Display', serif"}}>Convene a room</h2>
-            <div className="w-10 h-0.5 bg-[#5c0403] mb-8"></div>
+            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-8 transition-colors">← Back</button>
+            <h2 className="text-4xl text-[#f5e6d3] mb-1 leading-tight" style={CHAKRA}>CONVENE A ROOM</h2>
+            <div className="w-10 h-px bg-[#5c0403] mb-8"></div>
             <div className="space-y-5">
-              <div>
-                <label className={labelCls}>Your name</label>
-                <input value={cName} onChange={e => setCName(e.target.value)} placeholder="e.g. Piyush" className={inputCls} />
-              </div>
-              <div>
-                <label className={labelCls}>The challenge</label>
-                <textarea value={cTopic} onChange={e => setCTopic(e.target.value)} placeholder="e.g. How do we position Tagda Raho against legacy gym culture without relying on paid ads?" rows={3} className={inputCls + " resize-none"} />
-              </div>
+              <div><label className={labelCls}>Your name</label><input value={cName} onChange={e => setCName(e.target.value)} placeholder="e.g. Piyush" className={inputCls} /></div>
+              <div><label className={labelCls}>The challenge</label><textarea value={cTopic} onChange={e => setCTopic(e.target.value)} placeholder="e.g. How do we position Tagda Raho against legacy gym culture?" rows={3} className={inputCls + " resize-none"} /></div>
               <div>
                 <label className={labelCls}>Your personality file</label>
                 <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-5 cursor-pointer hover:border-[#5c0403] transition-colors bg-black/20">
-                  <div className="text-[#a07060] text-sm font-medium mb-1">{cFileName || "Upload .md file"}</div>
-                  <div className="text-[#5c0403]/60 text-xs">{cFileName ? "✓ Loaded" : "Click to browse"}</div>
+                  <div className="text-[#a07060] text-sm mb-1" style={CHAKRA}>{cFileName || "UPLOAD .MD FILE"}</div>
+                  <div className="text-[#5c0403]/60 text-xs" style={PLAYFAIR}>{cFileName ? "✓ Loaded" : "Click to browse"}</div>
                   <input type="file" accept=".md,.txt" className="hidden" onChange={e => handleFile(e, setCPersonality, setCFileName)} />
                 </label>
               </div>
-              <div>
-                <label className={labelCls}>Or paste personality</label>
-                <textarea value={cPersonality} onChange={e => setCPersonality(e.target.value)} placeholder="How you think, what you prioritize, your blind spots, your edge..." rows={4} className={inputCls + " resize-none"} />
-              </div>
+              <div><label className={labelCls}>Or paste personality</label><textarea value={cPersonality} onChange={e => setCPersonality(e.target.value)} placeholder="How you think, what you prioritize, your blind spots..." rows={4} className={inputCls + " resize-none"} /></div>
               {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={createRoom} disabled={loading}
-                className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] font-medium py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
-                {loading ? "Creating..." : "Open the boardroom →"}
+              <button onClick={createRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40" style={CHAKRA}>
+                {loading ? "CREATING..." : "OPEN THE BOARDROOM →"}
               </button>
             </div>
           </div>
@@ -148,36 +145,24 @@ export default function Home() {
 
         {mode === "join" && (
           <div className="fade-up">
-            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-8 flex items-center gap-2 transition-colors">
-              ← Back
-            </button>
-            <h2 className="text-3xl font-black text-[#f5e6d3] mb-1" style={{fontFamily: "'Playfair Display', serif"}}>Join a room</h2>
-            <div className="w-10 h-0.5 bg-[#5c0403] mb-8"></div>
+            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-8 transition-colors">← Back</button>
+            <h2 className="text-4xl text-[#f5e6d3] mb-1 leading-tight" style={CHAKRA}>JOIN A ROOM</h2>
+            <div className="w-10 h-px bg-[#5c0403] mb-8"></div>
             <div className="space-y-5">
-              <div>
-                <label className={labelCls}>Room code</label>
-                <input value={jCode} onChange={e => setJCode(e.target.value.toUpperCase())} placeholder="e.g. ALPHA" className={inputCls + " font-mono tracking-widest uppercase"} />
-              </div>
-              <div>
-                <label className={labelCls}>Your name</label>
-                <input value={jName} onChange={e => setJName(e.target.value)} placeholder="Your name" className={inputCls} />
-              </div>
+              <div><label className={labelCls}>Room code</label><input value={jCode} onChange={e => setJCode(e.target.value.toUpperCase())} placeholder="ALPHA" className={inputCls + " font-mono tracking-widest uppercase"} /></div>
+              <div><label className={labelCls}>Your name</label><input value={jName} onChange={e => setJName(e.target.value)} placeholder="Your name" className={inputCls} /></div>
               <div>
                 <label className={labelCls}>Your personality file</label>
                 <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-5 cursor-pointer hover:border-[#5c0403] transition-colors bg-black/20">
-                  <div className="text-[#a07060] text-sm font-medium mb-1">{jFileName || "Upload .md file"}</div>
-                  <div className="text-[#5c0403]/60 text-xs">{jFileName ? "✓ Loaded" : "Click to browse"}</div>
+                  <div className="text-[#a07060] text-sm mb-1" style={CHAKRA}>{jFileName || "UPLOAD .MD FILE"}</div>
+                  <div className="text-[#5c0403]/60 text-xs" style={PLAYFAIR}>{jFileName ? "✓ Loaded" : "Click to browse"}</div>
                   <input type="file" accept=".md,.txt" className="hidden" onChange={e => handleFile(e, setJPersonality, setJFileName)} />
                 </label>
               </div>
-              <div>
-                <label className={labelCls}>Or paste personality</label>
-                <textarea value={jPersonality} onChange={e => setJPersonality(e.target.value)} placeholder="How you think, what you prioritize, your communication style..." rows={4} className={inputCls + " resize-none"} />
-              </div>
+              <div><label className={labelCls}>Or paste personality</label><textarea value={jPersonality} onChange={e => setJPersonality(e.target.value)} placeholder="How you think, your communication style..." rows={4} className={inputCls + " resize-none"} /></div>
               {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={joinRoom} disabled={loading}
-                className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] font-medium py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
-                {loading ? "Joining..." : "Take your seat →"}
+              <button onClick={joinRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40" style={CHAKRA}>
+                {loading ? "JOINING..." : "TAKE YOUR SEAT →"}
               </button>
             </div>
           </div>
