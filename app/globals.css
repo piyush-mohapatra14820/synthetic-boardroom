@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * { box-sizing: border-box; }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
 
 body {
   font-family: "Inter", system-ui, sans-serif;
@@ -11,40 +16,10 @@ body {
   color: #f5e6d3;
   background-color: #1a0e0d;
   background-image:
-    repeating-linear-gradient(
-      92deg,
-      transparent,
-      transparent 2px,
-      rgba(92,4,3,0.04) 2px,
-      rgba(92,4,3,0.04) 4px
-    ),
-    repeating-linear-gradient(
-      180deg,
-      transparent,
-      transparent 8px,
-      rgba(67,47,46,0.15) 8px,
-      rgba(67,47,46,0.15) 9px
-    ),
-    repeating-linear-gradient(
-      88deg,
-      transparent,
-      transparent 60px,
-      rgba(92,4,3,0.03) 60px,
-      rgba(92,4,3,0.03) 120px
-    ),
-    linear-gradient(
-      180deg,
-      #2a1412 0%,
-      #1e0f0e 20%,
-      #231210 40%,
-      #1a0d0c 60%,
-      #211110 80%,
-      #1e0f0e 100%
-    );
-}
-
-.wood-grain {
-  position: relative;
+    repeating-linear-gradient(92deg, transparent, transparent 2px, rgba(92,4,3,0.04) 2px, rgba(92,4,3,0.04) 4px),
+    repeating-linear-gradient(180deg, transparent, transparent 8px, rgba(67,47,46,0.15) 8px, rgba(67,47,46,0.15) 9px),
+    repeating-linear-gradient(88deg, transparent, transparent 60px, rgba(92,4,3,0.03) 60px, rgba(92,4,3,0.03) 120px),
+    linear-gradient(180deg, #2a1412 0%, #1e0f0e 20%, #231210 40%, #1a0d0c 60%, #211110 80%, #1e0f0e 100%);
 }
 
 .wood-grain::before {
@@ -52,43 +27,24 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    repeating-linear-gradient(
-      87deg,
-      transparent 0px,
-      transparent 30px,
-      rgba(139,69,19,0.04) 30px,
-      rgba(139,69,19,0.04) 31px,
-      transparent 31px,
-      transparent 80px,
-      rgba(92,4,3,0.06) 80px,
-      rgba(92,4,3,0.06) 81px
-    ),
-    repeating-linear-gradient(
-      93deg,
-      transparent 0px,
-      transparent 50px,
-      rgba(67,47,46,0.05) 50px,
-      rgba(67,47,46,0.05) 52px
-    );
+    repeating-linear-gradient(87deg, transparent 0px, transparent 30px, rgba(139,69,19,0.04) 30px, rgba(139,69,19,0.04) 31px, transparent 31px, transparent 80px, rgba(92,4,3,0.06) 80px, rgba(92,4,3,0.06) 81px),
+    repeating-linear-gradient(93deg, transparent 0px, transparent 50px, rgba(67,47,46,0.05) 50px, rgba(67,47,46,0.05) 52px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Primary display font — tall, condensed, square terminals */
 h1, h2, h3, .font-display {
-  font-family: "Chakra Petch", sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
 }
 
-/* Secondary — editorial serif for body headings and labels */
 .font-serif {
   font-family: "Playfair Display", serif;
   font-weight: 500;
 }
 
 ::selection { background: #5c0403; color: #f5e6d3; }
-
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #1a0e0d; }
 ::-webkit-scrollbar-thumb { background: #432f2e; border-radius: 2px; }
