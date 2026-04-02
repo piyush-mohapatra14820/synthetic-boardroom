@@ -60,8 +60,8 @@ export default function Home() {
     } catch (e) { setError(e.message || "Failed."); setLoading(false); }
   }
 
-  const inputCls = "w-full bg-black/30 border border-[#5c0403]/40 rounded-lg px-4 py-3 text-[#f5e6d3] text-sm placeholder-[#8a6a65] focus:outline-none focus:border-[#5c0403] transition-colors";
-  const labelCls = "block text-xs font-medium text-[#a07060] uppercase tracking-widest mb-2";
+  const inputCls = "w-full bg-black/8 border border-[#5c0403]/30 rounded-lg px-4 py-3 text-[#1a0e08] text-sm placeholder-[#8a6a4a] focus:outline-none focus:border-[#5c0403] focus:bg-white/40 transition-colors";
+  const labelCls = "block text-xs font-medium text-[#5c0403] uppercase tracking-widest mb-2";
 
   return (
     <main className="wood-grain min-h-screen flex items-center justify-center px-6 py-16 relative z-10 overflow-x-hidden">
@@ -70,73 +70,73 @@ export default function Home() {
         {mode === "home" && (
           <div className="fade-up text-center">
             <div className="mb-3">
-              <span className="text-[#5c0403] text-xs uppercase tracking-[0.3em]" style={PLAYFAIR}>Private Beta</span>
+              <span className="text-[#5c0403]/70 text-xs uppercase tracking-[0.3em]" style={PLAYFAIR}>Private Beta</span>
             </div>
 
-            <h1 className="text-[clamp(2.5rem,12vw,5rem)] text-[#f5e6d3] leading-none mb-1" style={OSWALD}>
+            <h1 className="text-[clamp(2.8rem,13vw,5.5rem)] text-[#1a0e08] leading-none mb-1" style={OSWALD}>
               SYNTHETIC
             </h1>
-            <h1 className="text-[clamp(2.5rem,12vw,5rem)] text-[#5c0403] leading-none mb-5" style={OSWALD}>
+            <h1 className="text-[clamp(2.8rem,13vw,5.5rem)] text-[#5c0403] leading-none mb-5" style={OSWALD}>
               BOARDROOM
             </h1>
 
-            <div className="w-12 h-px bg-[#5c0403] mx-auto mb-5"></div>
+            <div className="w-12 h-px bg-[#5c0403]/60 mx-auto mb-5"></div>
 
-            <p className="text-[#a07060] text-sm leading-relaxed mb-10 max-w-xs mx-auto" style={PLAYFAIR}>
+            <p className="text-[#3d2010] text-sm leading-relaxed mb-10 max-w-xs mx-auto" style={PLAYFAIR}>
               Upload your personality. Your digital self debates with the sharpest minds in your network — no calendars, no egos. Just signal.
             </p>
 
             <div className="space-y-3">
               <button onClick={() => { setMode("create"); setError(""); }}
-                className="w-full text-left px-5 py-4 rounded-xl border border-[#5c0403]/50 bg-black/20 hover:bg-[#5c0403]/10 hover:border-[#5c0403] transition-all group">
+                className="w-full text-left px-5 py-4 rounded-xl border border-[#5c0403]/40 bg-white/25 hover:bg-white/40 hover:border-[#5c0403]/70 transition-all group backdrop-blur-sm shadow-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="text-[#f5e6d3] text-base mb-0.5" style={OSWALD}>CONVENE A ROOM</div>
-                    <div className="text-[#8a6a65] text-xs truncate" style={PLAYFAIR}>Start a boardroom. Share the code with your people.</div>
+                    <div className="text-[#1a0e08] text-base mb-0.5" style={OSWALD}>CONVENE A ROOM</div>
+                    <div className="text-[#5c3010] text-xs" style={PLAYFAIR}>Start a boardroom. Share the code with your people.</div>
                   </div>
-                  <div className="text-[#5c0403] group-hover:translate-x-0.5 transition-transform flex-shrink-0">→</div>
+                  <div className="text-[#5c0403] group-hover:translate-x-0.5 transition-transform flex-shrink-0 text-lg">→</div>
                 </div>
               </button>
 
               <button onClick={() => { setMode("join"); setError(""); }}
-                className="w-full text-left px-5 py-4 rounded-xl border border-[#432f2e]/50 bg-black/20 hover:bg-[#432f2e]/20 hover:border-[#432f2e] transition-all group">
+                className="w-full text-left px-5 py-4 rounded-xl border border-[#3d2010]/30 bg-white/20 hover:bg-white/35 hover:border-[#3d2010]/50 transition-all group backdrop-blur-sm shadow-sm">
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <div className="text-[#f5e6d3] text-base mb-0.5" style={OSWALD}>JOIN A ROOM</div>
-                    <div className="text-[#8a6a65] text-xs truncate" style={PLAYFAIR}>Enter a code and upload your personality.</div>
+                    <div className="text-[#1a0e08] text-base mb-0.5" style={OSWALD}>JOIN A ROOM</div>
+                    <div className="text-[#5c3010] text-xs" style={PLAYFAIR}>Enter a code and upload your personality.</div>
                   </div>
-                  <div className="text-[#432f2e] group-hover:translate-x-0.5 transition-transform flex-shrink-0">→</div>
+                  <div className="text-[#3d2010] group-hover:translate-x-0.5 transition-transform flex-shrink-0 text-lg">→</div>
                 </div>
               </button>
             </div>
 
             <div className="mt-8 flex items-center gap-3 justify-center">
-              <div className="h-px flex-1 bg-[#432f2e]/30"></div>
+              <div className="h-px flex-1 bg-[#5c0403]/20"></div>
               <span className="text-[#5c0403]/50 text-xs uppercase tracking-widest flex-shrink-0" style={PLAYFAIR}>Built for founders</span>
-              <div className="h-px flex-1 bg-[#432f2e]/30"></div>
+              <div className="h-px flex-1 bg-[#5c0403]/20"></div>
             </div>
           </div>
         )}
 
         {mode === "create" && (
           <div className="fade-up">
-            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-6 transition-colors">← Back</button>
-            <h2 className="text-3xl text-[#f5e6d3] mb-1 leading-tight" style={OSWALD}>CONVENE A ROOM</h2>
+            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#5c3010] hover:text-[#1a0e08] text-sm mb-6 transition-colors">← Back</button>
+            <h2 className="text-3xl text-[#1a0e08] mb-1 leading-tight" style={OSWALD}>CONVENE A ROOM</h2>
             <div className="w-8 h-px bg-[#5c0403] mb-6"></div>
             <div className="space-y-4">
               <div><label className={labelCls}>Your name</label><input value={cName} onChange={e => setCName(e.target.value)} placeholder="e.g. Piyush" className={inputCls} /></div>
               <div><label className={labelCls}>The challenge</label><textarea value={cTopic} onChange={e => setCTopic(e.target.value)} placeholder="e.g. How do we position Tagda Raho against legacy gym culture?" rows={3} className={inputCls + " resize-none"} /></div>
               <div>
                 <label className={labelCls}>Personality file</label>
-                <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-4 cursor-pointer hover:border-[#5c0403] transition-colors bg-black/20">
-                  <div className="text-[#a07060] text-sm mb-0.5" style={OSWALD}>{cFileName || "UPLOAD .MD FILE"}</div>
+                <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-4 cursor-pointer hover:border-[#5c0403] hover:bg-white/20 transition-colors">
+                  <div className="text-[#5c3010] text-sm mb-0.5" style={OSWALD}>{cFileName || "UPLOAD .MD FILE"}</div>
                   <div className="text-[#5c0403]/60 text-xs" style={PLAYFAIR}>{cFileName ? "✓ Loaded" : "Click to browse"}</div>
                   <input type="file" accept=".md,.txt" className="hidden" onChange={e => handleFile(e, setCPersonality, setCFileName)} />
                 </label>
               </div>
               <div><label className={labelCls}>Or paste personality</label><textarea value={cPersonality} onChange={e => setCPersonality(e.target.value)} placeholder="How you think, what you prioritize, your blind spots..." rows={4} className={inputCls + " resize-none"} /></div>
-              {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={createRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40" style={OSWALD}>
+              {error && <p className="text-red-700 text-sm">{error}</p>}
+              <button onClick={createRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40 shadow-md" style={OSWALD}>
                 {loading ? "CREATING..." : "OPEN THE BOARDROOM →"}
               </button>
             </div>
@@ -145,29 +145,28 @@ export default function Home() {
 
         {mode === "join" && (
           <div className="fade-up">
-            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#8a6a65] hover:text-[#f5e6d3] text-sm mb-6 transition-colors">← Back</button>
-            <h2 className="text-3xl text-[#f5e6d3] mb-1 leading-tight" style={OSWALD}>JOIN A ROOM</h2>
+            <button onClick={() => { setMode("home"); setError(""); }} className="text-[#5c3010] hover:text-[#1a0e08] text-sm mb-6 transition-colors">← Back</button>
+            <h2 className="text-3xl text-[#1a0e08] mb-1 leading-tight" style={OSWALD}>JOIN A ROOM</h2>
             <div className="w-8 h-px bg-[#5c0403] mb-6"></div>
             <div className="space-y-4">
               <div><label className={labelCls}>Room code</label><input value={jCode} onChange={e => setJCode(e.target.value.toUpperCase())} placeholder="ALPHA" className={inputCls + " font-mono tracking-widest uppercase"} /></div>
               <div><label className={labelCls}>Your name</label><input value={jName} onChange={e => setJName(e.target.value)} placeholder="Your name" className={inputCls} /></div>
               <div>
                 <label className={labelCls}>Personality file</label>
-                <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-4 cursor-pointer hover:border-[#5c0403] transition-colors bg-black/20">
-                  <div className="text-[#a07060] text-sm mb-0.5" style={OSWALD}>{jFileName || "UPLOAD .MD FILE"}</div>
+                <label className="flex flex-col items-center border border-dashed border-[#5c0403]/40 rounded-lg p-4 cursor-pointer hover:border-[#5c0403] hover:bg-white/20 transition-colors">
+                  <div className="text-[#5c3010] text-sm mb-0.5" style={OSWALD}>{jFileName || "UPLOAD .MD FILE"}</div>
                   <div className="text-[#5c0403]/60 text-xs" style={PLAYFAIR}>{jFileName ? "✓ Loaded" : "Click to browse"}</div>
                   <input type="file" accept=".md,.txt" className="hidden" onChange={e => handleFile(e, setJPersonality, setJFileName)} />
                 </label>
               </div>
               <div><label className={labelCls}>Or paste personality</label><textarea value={jPersonality} onChange={e => setJPersonality(e.target.value)} placeholder="How you think, your communication style..." rows={4} className={inputCls + " resize-none"} /></div>
-              {error && <p className="text-red-400 text-sm">{error}</p>}
-              <button onClick={joinRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40" style={OSWALD}>
+              {error && <p className="text-red-700 text-sm">{error}</p>}
+              <button onClick={joinRoom} disabled={loading} className="w-full bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] py-3.5 rounded-lg text-sm transition-colors disabled:opacity-40 shadow-md" style={OSWALD}>
                 {loading ? "JOINING..." : "TAKE YOUR SEAT →"}
               </button>
             </div>
           </div>
         )}
-
       </div>
     </main>
   );
