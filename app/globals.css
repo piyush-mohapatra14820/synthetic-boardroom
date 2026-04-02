@@ -4,22 +4,53 @@
 @tailwind utilities;
 
 * { box-sizing: border-box; }
-
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-}
+html, body { overflow-x: hidden; width: 100%; }
 
 body {
   font-family: "Inter", system-ui, sans-serif;
   min-height: 100vh;
-  color: #f5e6d3;
-  background-color: #1a0e0d;
+  color: #1a0e08;
+  background-color: #d4a96a;
   background-image:
-    repeating-linear-gradient(92deg, transparent, transparent 2px, rgba(92,4,3,0.04) 2px, rgba(92,4,3,0.04) 4px),
-    repeating-linear-gradient(180deg, transparent, transparent 8px, rgba(67,47,46,0.15) 8px, rgba(67,47,46,0.15) 9px),
-    repeating-linear-gradient(88deg, transparent, transparent 60px, rgba(92,4,3,0.03) 60px, rgba(92,4,3,0.03) 120px),
-    linear-gradient(180deg, #2a1412 0%, #1e0f0e 20%, #231210 40%, #1a0d0c 60%, #211110 80%, #1e0f0e 100%);
+    repeating-linear-gradient(
+      91deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(160,100,40,0.12) 3px,
+      rgba(160,100,40,0.12) 4px,
+      transparent 4px,
+      transparent 12px,
+      rgba(180,120,55,0.07) 12px,
+      rgba(180,120,55,0.07) 13px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(140,85,30,0.08) 40px,
+      rgba(140,85,30,0.08) 41px,
+      transparent 41px,
+      transparent 90px,
+      rgba(160,100,45,0.06) 90px,
+      rgba(160,100,45,0.06) 92px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 60px,
+      rgba(120,70,20,0.04) 60px,
+      rgba(120,70,20,0.04) 62px
+    ),
+    linear-gradient(
+      160deg,
+      #e2c48a 0%,
+      #d4a96a 18%,
+      #c99a58 35%,
+      #d6ae72 50%,
+      #cc9e5c 65%,
+      #d8b278 80%,
+      #c8975a 100%
+    );
 }
 
 .wood-grain::before {
@@ -27,8 +58,24 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    repeating-linear-gradient(87deg, transparent 0px, transparent 30px, rgba(139,69,19,0.04) 30px, rgba(139,69,19,0.04) 31px, transparent 31px, transparent 80px, rgba(92,4,3,0.06) 80px, rgba(92,4,3,0.06) 81px),
-    repeating-linear-gradient(93deg, transparent 0px, transparent 50px, rgba(67,47,46,0.05) 50px, rgba(67,47,46,0.05) 52px);
+    repeating-linear-gradient(
+      88deg,
+      transparent 0px,
+      transparent 25px,
+      rgba(101,60,15,0.06) 25px,
+      rgba(101,60,15,0.06) 26px,
+      transparent 26px,
+      transparent 70px,
+      rgba(130,80,25,0.05) 70px,
+      rgba(130,80,25,0.05) 71px
+    ),
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      transparent 55px,
+      rgba(90,50,10,0.04) 55px,
+      rgba(90,50,10,0.04) 57px
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -46,8 +93,8 @@ h1, h2, h3, .font-display {
 
 ::selection { background: #5c0403; color: #f5e6d3; }
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #1a0e0d; }
-::-webkit-scrollbar-thumb { background: #432f2e; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #c99a58; }
+::-webkit-scrollbar-thumb { background: #5c0403; border-radius: 2px; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
