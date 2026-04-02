@@ -4,6 +4,9 @@ import { useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import { getColor, initials } from "@/lib/utils";
 
+const OSWALD = { fontFamily: "'Oswald', sans-serif", fontWeight: 700, letterSpacing: '0.02em' };
+const PLAYFAIR = { fontFamily: "'Playfair Display', serif", fontWeight: 500 };
+
 export default function RoomPage() {
   const { code } = useParams();
   const [room, setRoom] = useState(null);
@@ -82,17 +85,15 @@ export default function RoomPage() {
     setTurns(parsed);
   }
 
-  const myVote = members.find(m => m.name === myName)?.vote;
   const yesVotes = members.filter(m => m.vote === true).length;
   const total = members.length;
+  const myVote = members.find(m => m.name === myName)?.vote;
   const votePct = total > 0 ? Math.round((yesVotes / total) * 100) : 0;
-
-  const displayFont = { fontFamily: "'Playfair Display', serif", fontWeight: 900 };
 
   if (notFound) return (
     <main className="wood-grain min-h-screen flex items-center justify-center relative z-10">
       <div className="text-center relative z-10">
-        <div className="text-[#8a6a65] text-sm mb-3">Room not found</div>
+        <div className="text-[#5c3010] text-sm mb-3">Room not found</div>
         <a href="/" className="text-[#5c0403] text-sm hover:underline">← Back to boardroom</a>
       </div>
     </main>
@@ -100,48 +101,48 @@ export default function RoomPage() {
 
   if (!room) return (
     <main className="wood-grain min-h-screen flex items-center justify-center relative z-10">
-      <div className="text-[#8a6a65] text-sm relative z-10">Unlocking the chamber...</div>
+      <div className="text-[#5c3010] text-sm relative z-10">Unlocking the chamber...</div>
     </main>
   );
 
   return (
-    <main className="wood-grain min-h-screen px-4 py-10 relative z-10">
+    <main className="wood-grain min-h-screen px-4 py-10 relative z-10 overflow-x-hidden">
       <div className="max-w-2xl mx-auto relative z-10">
 
-        <div className="flex items-start justify-between mb-8">
-          <div>
-            <a href="/" className="text-[#8a6a65] hover:text-[#f5e6d3] text-xs mb-3 block transition-colors">← Synthetic Boardroom</a>
-            <h1 className="text-2xl font-black text-[#f5e6d3] mb-1 leading-tight" style={displayFont}>{room.topic}</h1>
-            <div className="text-[#8a6a65] text-sm">{room.started ? "Session in progress" : `${total} member${total !== 1 ? "s" : ""} · Awaiting quorum`}</div>
+        <div className="flex items-start justify-between gap-4 mb-8">
+          <div className="min-w-0">
+            <a href="/" className="text-[#5c3010] hover:text-[#1a0e08] text-xs mb-2 block transition-colors">← Synthetic Boardroom</a>
+            <h1 className="text-xl text-[#1a0e08] mb-1 leading-tight" style={OSWALD}>{room.topic}</h1>
+            <div className="text-[#5c3010] text-sm" style={PLAYFAIR}>{room.started ? "Session in progress" : `${total} member${total !== 1 ? "s" : ""} · Awaiting quorum`}</div>
           </div>
-          <div className="font-mono text-base font-medium text-[#5c0403] tracking-widest border border-[#5c0403]/40 bg-black/30 px-3 py-2 rounded-lg flex-shrink-0">
+          <div className="font-mono text-sm font-medium text-[#5c0403] tracking-widest border border-[#5c0403]/50 bg-white/40 px-3 py-1.5 rounded-lg flex-shrink-0 backdrop-blur-sm">
             {code}
           </div>
         </div>
 
         {!room.started && (
           <>
-            <div className="border border-[#5c0403]/30 bg-black/20 rounded-xl p-4 mb-6 backdrop-blur-sm">
-              <div className="text-xs font-medium text-[#8a6a65] uppercase tracking-widest mb-2">Invite others</div>
-              <div className="text-sm text-[#a07060]">Share room code: <span className="text-[#f5e6d3] font-mono font-medium">{code}</span></div>
+            <div className="border border-[#5c0403]/25 bg-white/30 rounded-xl p-4 mb-4 backdrop-blur-sm">
+              <div className="text-xs font-medium text-[#5c0403] uppercase tracking-widest mb-1.5" style={OSWALD}>Invite Others</div>
+              <div className="text-sm text-[#3d2010]" style={PLAYFAIR}>Share room code: <span className="font-mono font-medium text-[#1a0e08]">{code}</span></div>
             </div>
 
-            <div className="mb-6">
-              <div className="text-xs font-medium text-[#8a6a65] uppercase tracking-widest mb-3">Council members</div>
+            <div className="mb-4">
+              <div className="text-xs font-medium text-[#5c0403] uppercase tracking-widest mb-3" style={OSWALD}>Council Members</div>
               <div className="space-y-2">
                 {members.map(m => {
                   const c = getColor(m.color_index);
                   return (
-                    <div key={m.id} className="flex items-center justify-between border border-[#432f2e]/40 bg-black/20 rounded-xl px-4 py-3 backdrop-blur-sm">
+                    <div key={m.id} className="flex items-center justify-between border border-[#5c0403]/20 bg-white/35 rounded-xl px-4 py-3 backdrop-blur-sm">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{background: c.bg, color: c.fg}}>{initials(m.name)}</div>
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0" style={{background:c.bg,color:c.fg}}>{initials(m.name)}</div>
                         <div>
-                          <div className="text-[#f5e6d3] text-sm font-medium">{m.name} {m.name === myName && <span className="text-[#8a6a65] font-normal text-xs">(you)</span>}</div>
-                          <div className="text-[#8a6a65] text-xs">{m.is_creator ? "Room creator" : "Member"}</div>
+                          <div className="text-[#1a0e08] text-sm font-medium">{m.name} {m.name === myName && <span className="text-[#5c3010] font-normal text-xs">(you)</span>}</div>
+                          <div className="text-[#5c3010] text-xs" style={PLAYFAIR}>{m.is_creator ? "Room creator" : "Member"}</div>
                         </div>
                       </div>
-                      <div className={`text-xs px-2 py-1 rounded-full ${m.vote === true ? "bg-[#5c0403]/30 text-[#f5e6d3]" : m.vote === false ? "bg-black/40 text-[#8a6a65]" : "bg-black/20 text-[#8a6a65]"}`}>
-                        {m.vote === true ? "✓ Ready" : m.vote === false ? "Not ready" : "Waiting"}
+                      <div className={`text-xs px-2 py-1 rounded-full ${m.vote === true ? "bg-[#5c0403] text-[#f5e6d3]" : m.vote === false ? "bg-[#3d2010]/20 text-[#3d2010]" : "bg-black/10 text-[#5c3010]"}`} style={PLAYFAIR}>
+                        {m.vote === true ? "✓ Ready" : m.vote === false ? "Not yet" : "Waiting"}
                       </div>
                     </div>
                   );
@@ -149,27 +150,27 @@ export default function RoomPage() {
               </div>
             </div>
 
-            <div className="border border-[#5c0403]/30 bg-black/20 rounded-xl p-5 mb-6 backdrop-blur-sm">
-              <div className="flex items-center justify-between mb-3">
+            <div className="border border-[#5c0403]/25 bg-white/30 rounded-xl p-5 mb-6 backdrop-blur-sm">
+              <div className="flex items-center justify-between mb-2">
                 <div>
-                  <div className="text-[#f5e6d3] text-sm font-medium" style={displayFont}>Call the session to order?</div>
-                  <div className="text-[#8a6a65] text-xs mt-1">Majority vote convenes the council</div>
+                  <div className="text-[#1a0e08] text-base" style={OSWALD}>Call the session to order?</div>
+                  <div className="text-[#5c3010] text-xs mt-0.5" style={PLAYFAIR}>Majority vote convenes the council</div>
                 </div>
-                <div className={`text-xs px-2 py-1 rounded-full border ${yesVotes >= Math.ceil(total/2) && total >= 2 ? "border-[#5c0403] text-[#f5e6d3] bg-[#5c0403]/20" : "border-[#432f2e]/40 text-[#8a6a65]"}`}>
+                <div className={`text-xs px-2 py-1 rounded-full border ${yesVotes >= Math.ceil(total/2) && total >= 2 ? "border-[#5c0403] bg-[#5c0403]/10 text-[#5c0403]" : "border-[#5c3010]/30 text-[#5c3010]"}`} style={PLAYFAIR}>
                   {yesVotes >= Math.ceil(total/2) && total >= 2 ? "Convening..." : `${yesVotes}/${total} ready`}
                 </div>
               </div>
-              <div className="h-0.5 bg-[#432f2e]/30 rounded-full mb-4 overflow-hidden">
+              <div className="h-px bg-[#5c0403]/15 rounded-full mb-3 overflow-hidden">
                 <div className="h-full bg-[#5c0403] rounded-full transition-all duration-500" style={{width:`${votePct}%`}} />
               </div>
-              <div className="text-[#8a6a65] text-xs mb-4">{yesVotes} of {total} voted · need {Math.ceil(total/2)} to convene</div>
+              <div className="text-[#5c3010] text-xs mb-4" style={PLAYFAIR}>{yesVotes} of {total} voted · need {Math.ceil(total/2)} to convene</div>
               {myName && (
                 <div className="flex gap-2">
-                  <button onClick={() => castVote(true)} className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${myVote === true ? "bg-[#5c0403] text-[#f5e6d3]" : "border border-[#5c0403]/40 text-[#a07060] hover:bg-[#5c0403]/20"}`}>
-                    Aye, convene
+                  <button onClick={() => castVote(true)} className={`flex-1 py-2.5 rounded-lg text-sm transition-all ${myVote === true ? "bg-[#5c0403] text-[#f5e6d3]" : "border border-[#5c0403]/40 text-[#3d2010] hover:bg-[#5c0403]/10"}`} style={OSWALD}>
+                    AYE, CONVENE
                   </button>
-                  <button onClick={() => castVote(false)} className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${myVote === false ? "bg-[#432f2e] text-[#f5e6d3]" : "border border-[#432f2e]/40 text-[#8a6a65] hover:bg-[#432f2e]/20"}`}>
-                    Not yet
+                  <button onClick={() => castVote(false)} className={`flex-1 py-2.5 rounded-lg text-sm transition-all ${myVote === false ? "bg-[#3d2010]/20 text-[#1a0e08] border border-[#3d2010]/30" : "border border-[#3d2010]/30 text-[#5c3010] hover:bg-[#3d2010]/10"}`} style={OSWALD}>
+                    NOT YET
                   </button>
                 </div>
               )}
@@ -179,12 +180,12 @@ export default function RoomPage() {
 
         {room.started && (
           <>
-            <div className="flex gap-1 border-b border-[#432f2e]/40 mb-6">
+            <div className="flex gap-1 border-b border-[#5c0403]/20 mb-6">
               {["transcript","members"].map(t => (
                 <button key={t} onClick={() => setTab(t)}
-                  className={`px-4 py-2.5 text-sm capitalize transition-colors ${tab === t ? "text-[#f5e6d3] border-b-2 border-[#5c0403] font-medium" : "text-[#8a6a65] hover:text-[#a07060]"}`}
-                  style={{marginBottom:"-1px"}}>
-                  {t}
+                  className={`px-4 py-2.5 text-sm capitalize transition-colors ${tab === t ? "text-[#1a0e08] border-b-2 border-[#5c0403] font-medium" : "text-[#5c3010] hover:text-[#1a0e08]"}`}
+                  style={{...OSWALD, marginBottom:"-1px", fontSize:'0.8rem'}}>
+                  {t.toUpperCase()}
                 </button>
               ))}
             </div>
@@ -192,9 +193,9 @@ export default function RoomPage() {
             {tab === "transcript" && (
               <div>
                 {generating && (
-                  <div className="flex items-center gap-3 text-[#8a6a65] text-sm mb-6">
-                    <div className="w-4 h-4 border-2 border-[#432f2e] border-t-[#5c0403] rounded-full animate-spin flex-shrink-0" />
-                    {genStatus}
+                  <div className="flex items-center gap-3 text-[#5c3010] text-sm mb-6">
+                    <div className="w-4 h-4 border-2 border-[#c99a58] border-t-[#5c0403] rounded-full animate-spin flex-shrink-0" />
+                    <span style={PLAYFAIR}>{genStatus}</span>
                   </div>
                 )}
                 <div className="space-y-6">
@@ -205,8 +206,8 @@ export default function RoomPage() {
                       <div key={i} className="flex gap-4 fade-up">
                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5" style={{background:c.bg,color:c.fg}}>{initials(turn.name)}</div>
                         <div>
-                          <div className="text-xs text-[#5c0403] mb-1.5 font-medium uppercase tracking-wider">{turn.name}</div>
-                          <div className="text-[#d4b9a8] text-sm leading-relaxed">{turn.text}</div>
+                          <div className="text-xs text-[#5c0403] mb-1.5 uppercase tracking-wider" style={OSWALD}>{turn.name}</div>
+                          <div className="text-[#2a1408] text-sm leading-relaxed" style={PLAYFAIR}>{turn.text}</div>
                         </div>
                       </div>
                     );
@@ -221,15 +222,15 @@ export default function RoomPage() {
                 {members.map(m => {
                   const c = getColor(m.color_index);
                   return (
-                    <div key={m.id} className="border border-[#432f2e]/40 bg-black/20 rounded-xl p-4 backdrop-blur-sm">
-                      <div className="flex items-center gap-3 mb-3">
+                    <div key={m.id} className="border border-[#5c0403]/20 bg-white/35 rounded-xl p-4 backdrop-blur-sm">
+                      <div className="flex items-center gap-3 mb-2">
                         <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-medium" style={{background:c.bg,color:c.fg}}>{initials(m.name)}</div>
                         <div>
-                          <div className="text-[#f5e6d3] text-sm font-medium">{m.name} {m.name === myName && <span className="text-[#8a6a65] text-xs">(you)</span>}</div>
-                          <div className="text-[#8a6a65] text-xs">{m.is_creator ? "Room creator" : "Member"}</div>
+                          <div className="text-[#1a0e08] text-sm font-medium">{m.name} {m.name === myName && <span className="text-[#5c3010] text-xs">(you)</span>}</div>
+                          <div className="text-[#5c3010] text-xs" style={PLAYFAIR}>{m.is_creator ? "Room creator" : "Member"}</div>
                         </div>
                       </div>
-                      <div className="text-[#8a6a65] text-xs leading-relaxed italic border-l-2 border-[#5c0403]/30 pl-3">"{m.personality.slice(0,160)}{m.personality.length > 160 ? "..." : ""}"</div>
+                      <div className="text-[#3d2010] text-xs leading-relaxed border-l-2 border-[#5c0403]/30 pl-3" style={PLAYFAIR}>"{m.personality.slice(0,160)}{m.personality.length > 160 ? "..." : ""}"</div>
                     </div>
                   );
                 })}
