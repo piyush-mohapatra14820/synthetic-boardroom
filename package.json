@@ -2,16 +2,26 @@
   "name": "synthetic-boardroom",
   "version": "0.1.0",
   "private": true,
-  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
-    "next": "14.2.0", "react": "^18", "react-dom": "^18",
-    "@supabase/supabase-js": "^2.43.0", "@supabase/ssr": "^0.3.0",
-    "@anthropic-ai/sdk": "^0.21.0", "framer-motion": "^11.0.0",
-    "lucide-react": "^0.379.0", "nanoid": "^5.0.7", "clsx": "^2.1.1"
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/supabase-js": "^2.49.4",
+    "next": "14.2.0",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5", "@types/node": "^20", "@types/react": "^18",
-    "@types/react-dom": "^18", "tailwindcss": "^3.4.0",
-    "autoprefixer": "^10.4.0", "postcss": "^8.4.0"
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
