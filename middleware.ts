@@ -1,21 +1,19 @@
-import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
-  const { data: { session } } = await supabase.auth.getSession();
   const { pathname } = req.nextUrl;
+  const cookies = req.cookies;
+  const hasSession = cookies.getAll().some(c => c.name.startsWith('sb-') && c.name.endsWith('-auth-token'));
   const protectedRoutes = ['/dashboard', '/group'];
   const isProtected = protectedRoutes.some(r => pathname.startsWith(r));
-  if (isProtected && !session) {
+  if (isProtected && !hasSession) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
-  if (pathname === '/login' && session) {
+  if (pathname === '/login' && hasSession) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
-  return res;
+  return NextResponse.next();
 }
 
 export const config = { matcher: ['/dashboard/:path*', '/group/:path*', '/login'] };
