@@ -18,7 +18,7 @@ interface Member {
   id: string;
   user_id: string;
   role: string;
-  profiles: { id: string; name: string; email: string; personality: string | null } | null;
+  profiles: { id: string; name: string; email: string; personality: string | null } | { id: string; name: string; email: string; personality: string | null }[] | null;
 }
 
 const inputCls = "w-full bg-black/8 border border-[#5c0403]/30 rounded-lg px-4 py-3 text-[#1a0e08] text-sm placeholder-[#8a6a4a] focus:outline-none focus:border-[#5c0403] transition-colors";
@@ -61,11 +61,11 @@ export default function GroupPage() {
       .from("group_members")
       .select("id, user_id, role, profiles(id, name, email, personality)")
       .eq("group_id", id);
-    const memberList = (m || []) as Member[];
-    setMembers(memberList);
+    const memberList = (m || []) as any[];
+    setMembers(memberList as any);
 
-    const me = memberList.find((x) => x.user_id === user.id);
-    if (me?.profiles?.personality) setPersonality(me.profiles.personality);
+    const me = memberList.find((x: any) => x.user_id === user.id);
+    if (me?.profiles) { const p = Array.isArray(me.profiles) ? me.profiles[0] : me.profiles; if (p?.personality) setPersonality(p.personality); }
 
     const { data: s } = await supabase
       .from("group_sessions")
@@ -121,19 +121,19 @@ export default function GroupPage() {
       <div className="max-w-xl mx-auto relative z-10">
         <div className="flex items-start justify-between gap-3 mb-6">
           <div className="min-w-0">
-            <a href="/dashboard" className="text-[#5c3010] text-xs hover:text-[#1a0e08] transition-colors block mb-1">← Dashboard</a>
+            <a href="/dashboard" className="text-[#5c3010] text-xs hover:text-[#1a0e08] transition-colors block mb-1">â Dashboard</a>
             <h1 className="text-2xl text-[#1a0e08] leading-tight" style={OSWALD}>{groupName.toUpperCase()}</h1>
             {groupDesc && <p className="text-[#5c3010] text-xs mt-0.5" style={PLAYFAIR}>{groupDesc}</p>}
           </div>
           <button onClick={copyInvite}
             className="flex-shrink-0 border border-[#5c0403]/40 text-[#5c0403] text-xs px-3 py-1.5 rounded-lg hover:bg-[#5c0403]/10 transition-colors"
             style={OSWALD}>
-            {copied ? "COPIED ✓" : "COPY INVITE"}
+            {copied ? "COPIED â" : "COPY INVITE"}
           </button>
         </div>
 
         <div className="border border-[#5c0403]/25 bg-white/40 rounded-xl p-4 mb-6 backdrop-blur-sm">
-          <div className="text-xs text-[#5c0403] uppercase tracking-widest mb-3" style={OSWALD}>Drop a topic — convene the council</div>
+          <div className="text-xs text-[#5c0403] uppercase tracking-widest mb-3" style={OSWALD}>Drop a topic â convene the council</div>
           <div className="flex gap-2">
             <input value={topic} onChange={(e) => setTopic(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && launchSession()}
@@ -142,12 +142,12 @@ export default function GroupPage() {
             <button onClick={launchSession} disabled={!topic.trim() || launching}
               className="flex-shrink-0 bg-[#5c0403] hover:bg-[#7a0504] text-[#f5e6d3] px-4 py-3 rounded-lg text-sm transition-colors disabled:opacity-40 shadow-sm"
               style={OSWALD}>
-              {launching ? "..." : "→"}
+              {launching ? "..." : "â"}
             </button>
           </div>
           {groupContext && (
             <div className="mt-3 text-xs text-[#5c3010] border-l-2 border-[#5c0403]/30 pl-3" style={PLAYFAIR}>
-              <span className="font-medium">Group memory active</span> · {sessionCount} sessions
+              <span className="font-medium">Group memory active</span> Â· {sessionCount} sessions
             </div>
           )}
         </div>
@@ -178,10 +178,10 @@ export default function GroupPage() {
                       <div className="text-[#1a0e08] text-sm font-medium" style={PLAYFAIR}>{s.topic}</div>
                       <div className="text-[#5c3010] text-xs mt-0.5" style={PLAYFAIR}>
                         {new Date(s.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                        {" · "}{s.transcript ? "Complete" : "In progress"}
+                        {" Â· "}{s.transcript ? "Complete" : "In progress"}
                       </div>
                     </div>
-                    <div className="text-[#5c0403] flex-shrink-0 group-hover:translate-x-0.5 transition-transform">→</div>
+                    <div className="text-[#5c0403] flex-shrink-0 group-hover:translate-x-0.5 transition-transform">â</div>
                   </div>
                 </button>
               ))}
@@ -221,7 +221,7 @@ export default function GroupPage() {
         {tab === "personality" && (
           <div className="space-y-3">
             <p className="text-[#5c3010] text-sm" style={PLAYFAIR}>
-              Your personality shapes how your digital self debates. Be specific — decision style, values, blind spots, what you optimise for.
+              Your personality shapes how your digital self debates. Be specific â decision style, values, blind spots, what you optimise for.
             </p>
             <textarea value={personality} onChange={(e) => setPersonality(e.target.value)}
               rows={8}
@@ -230,7 +230,7 @@ export default function GroupPage() {
             <button onClick={savePersonality} disabled={savingPersonality}
               className="w-full bg-[#5c0403] text-[#f5e6d3] py-3 rounded-lg text-sm disabled:opacity-40 transition-colors"
               style={OSWALD}>
-              {savingPersonality ? "SAVING..." : "SAVE PERSONALITY →"}
+              {savingPersonality ? "SAVING..." : "SAVE PERSONALITY â"}
             </button>
           </div>
         )}
