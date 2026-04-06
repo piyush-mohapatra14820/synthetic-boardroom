@@ -10,7 +10,7 @@ const PLAYFAIR = { fontFamily: "'Playfair Display', serif", fontWeight: 500 } as
 interface Turn { name: string; text: string; }
 interface BriefConclusion { number: number; title: string; action: string; rationale: string; owner: string; urgency: string; }
 interface Brief { summary: string; conclusions: BriefConclusion[]; }
-interface Member { id: string; user_id: string; profiles: { name: string; personality: string | null } | null; }
+interface Member { id: string; user_id: string; profiles: { name: string; personality: string | null } | { name: string; personality: string | null }[] | null; }
 
 function urgencyColor(u: string) {
   if (u === "immediate") return "bg-[#5c0403] text-[#f5e6d3]";
@@ -54,11 +54,11 @@ export default function SessionPage() {
     if (g) { setGroupName(g.name); setGroupContext(g.context || ""); setGroupSessionCount(g.session_count || 0); }
 
     const { data: m } = await supabase.from("group_members").select("id, user_id, profiles(name, personality)").eq("group_id", id);
-    setMembers((m as Member[]) || []);
+    setMembers((m as any[]) || []);
 
     if (!s.transcript && !hasRun.current) {
       hasRun.current = true;
-      runDebate(s, g, (m as Member[]) || []);
+      runDebate(s, g, (m as any[]) || []);
     }
 
     supabase.channel(`session-${sessionId}`)
@@ -71,12 +71,12 @@ export default function SessionPage() {
   async function runDebate(s: any, g: any, memberList: Member[]) {
     setGenerating(true);
     const profiles = memberList.map((m) =>
-      `**${m.profiles?.name || "Member"}**: ${m.profiles?.personality || "Thoughtful generalist — debate with curiosity and precision."}`
+      `**${m.profiles?.name || "Member"}**: ${m.profiles?.personality || "Thoughtful generalist â debate with curiosity and precision."}`
     ).join("\n\n");
     const contextBlock = g?.context
-      ? `\n\n[GROUP CONTEXT — from ${g.session_count || 0} previous sessions]\n${g.context}\n`
+      ? `\n\n[GROUP CONTEXT â from ${g.session_count || 0} previous sessions]\n${g.context}\n`
       : "";
-    const prompt = `You are facilitating a synthetic boardroom debate between ${memberList.length} distinct personalities. Real opinions, real disagreement, raw founder energy.${contextBlock}\n\nCouncil:\n${profiles}\n\nChallenge:\n${s.topic}\n\nRules:\n- Format every line as: Name: dialogue\n- Each person speaks 4+ times\n- Real pushback — no immediate agreement\n- At least one person changes their position\n- If group context is provided, members naturally reference past decisions\n\nOutput ONLY the transcript.`;
+    const prompt = `You are facilitating a synthetic boardroom debate between ${memberList.length} distinct personalities. Real opinions, real disagreement, raw founder energy.${contextBlock}\n\nCouncil:\n${profiles}\n\nChallenge:\n${s.topic}\n\nRules:\n- Format every line as: Name: dialogue\n- Each person speaks 4+ times\n- Real pushback â no immediate agreement\n- At least one person changes their position\n- If group context is provided, members naturally reference past decisions\n\nOutput ONLY the transcript.`;
 
     try {
       const res = await fetch("/api/sessions", {
@@ -129,7 +129,7 @@ export default function SessionPage() {
       if (data.brief) {
         const dateStr = new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
         const insights = (data.brief.member_insights || []).map((m: any) => `${m.name}: ${m.position}`).join(" | ");
-        const newEntry = `[${dateStr}] ${topicStr} → ${data.brief.key_decision || "See brief"}. ${insights}`;
+        const newEntry = `[${dateStr}] ${topicStr} â ${data.brief.key_decision || "See brief"}. ${insights}`;
         const existing = g.context ? g.context + "\n\n" : "";
         const updated = (existing + newEntry).slice(-3000);
         await supabase.from("groups").update({ context: updated }).eq("id", id);
@@ -159,7 +159,7 @@ export default function SessionPage() {
         <div className="flex items-start justify-between gap-4 mb-8">
           <div className="min-w-0">
             <a href={`/group/${id}`} className="text-[#5c3010] text-xs hover:text-[#1a0e08] transition-colors block mb-2">
-              ← {groupName || "Boardroom"}
+              â {groupName || "Boardroom"}
             </a>
             <h1 className="text-xl text-[#1a0e08] leading-tight" style={OSWALD}>{topic}</h1>
             <div className="text-[#5c3010] text-sm mt-0.5" style={PLAYFAIR}>{sessionDate}</div>
